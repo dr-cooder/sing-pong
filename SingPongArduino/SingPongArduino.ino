@@ -8,8 +8,8 @@ arduinoFFT FFT = arduinoFFT(); /* Create FFT object */
 #define CHANNEL A1
 // int speakPin = 9;
 
-const uint16_t samples = 256;//128; //64; //This value MUST ALWAYS be a power of 2
-const double samplingFrequency = 5000; //Hz, must be less than 10000 due to ADC
+const uint16_t samples = 16;//128; //64; //This value MUST ALWAYS be a power of 2
+const double samplingFrequency = 9000; //Hz, must be less than 10000 due to ADC
 
 unsigned int sampling_period_us;
 unsigned long microseconds;
@@ -57,7 +57,7 @@ void loop()
   long sortaMag = max(vReal[int(samples * .33)], vReal[int(samples * .5)]);
   sortaMag = max(sortaMag, vReal[int(samples * .25)]);
   Serial.print(sortaMag);
-  Serial.print(" - ");
+  Serial.print(",");
   
   Serial.println(peakFreq, 6); //Print out what frequency is the most dominant.
   
