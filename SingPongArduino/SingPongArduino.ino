@@ -8,7 +8,7 @@ arduinoFFT FFT = arduinoFFT(); /* Create FFT object */
 #define CHANNEL A1
 // int speakPin = 9;
 
-const uint16_t samples = 16;//128; //64; //This value MUST ALWAYS be a power of 2
+const uint16_t samples = 64;//128; //64; //This value MUST ALWAYS be a power of 2
 const double samplingFrequency = 9000; //Hz, must be less than 10000 due to ADC
 
 unsigned int sampling_period_us;
