@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO.Ports; // For serial
 using System.Threading;
+using TMPro;
 
 public class SceneMgrScript : MonoBehaviour
 {
@@ -10,10 +11,12 @@ public class SceneMgrScript : MonoBehaviour
     public GameObject paddle;
     public GameObject ball;
     public GameObject wall;
+    public TextMeshProUGUI scoreDisplay;
 
     private float paddleX;
     private float paddleSpriteX;
     private float paddleY;
+    private float paddleDeltaY;
     private float paddleMaxY;
     private float paddleMinY;
     private float paddleForgivenessY;
@@ -103,6 +106,9 @@ public class SceneMgrScript : MonoBehaviour
         public double PeakFreq => freqTotal / readingCount;
     }
 
+    private int score = 0;
+    private int highScore = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -118,6 +124,7 @@ public class SceneMgrScript : MonoBehaviour
         paddleX = paddle.transform.position.x + paddle.transform.localScale.x / 2 + ballPaddingX;
         paddleSpriteX = paddle.transform.position.x;
         paddleY = wall.transform.position.y;
+        paddleDeltaY = 0;
         paddleForgivenessY = paddle.transform.localScale.y / 2 + ballPaddingY;
 
         paddle.transform.position = new Vector2(paddleSpriteX, paddleY);
@@ -129,18 +136,12 @@ public class SceneMgrScript : MonoBehaviour
         paddleMaxY = (wall.transform.localScale.y - paddle.transform.localScale.y) / 2 + wall.transform.position.y;
         paddleMinY = -(wall.transform.localScale.y - paddle.transform.localScale.y) / 2 + wall.transform.position.y;
 
-        ballX = paddleX;
-        ballY = 0;
-        ballVelX = ballMaxSpeedX;
-        ballVelY = ballMaxSpeedY;
-
-        ball.transform.position = new Vector2(ballX, ballY);
+        ResetBall();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Debug.Log(stream.ReadLine());
         micData.Read(currentReading);
         if (micData.Magnitude > 80)
         {
@@ -153,7 +154,12 @@ public class SceneMgrScript : MonoBehaviour
                     (maximumFrequency - minimumFrequency)
                 ))
                 + paddleMinY;
+            paddleDeltaY = paddleY - paddle.transform.position.y;
             paddle.transform.position = new Vector2(paddleSpriteX, paddleY);
+        }
+        else
+        {
+            paddleDeltaY = 0;
         }
 
         float dt = Time.deltaTime;
@@ -178,10 +184,40 @@ public class SceneMgrScript : MonoBehaviour
         }
         else if (ballX <= paddleX && ballVelX < 0)
         {
-            // Check if paddle hit here
-            ballVelX = Mathf.Abs(ballVelX);
-            ballX = 2 * paddleX - ballX;
+            if (Mathf.Abs(ballY - paddleY) <= paddleForgivenessY)
+            {
+                score++;
+                if (score > highScore) highScore = score;
+                UpdateScoreDisplay();
+
+                ballVelX = Mathf.Abs(ballVelX);
+                ballVelY = Mathf.Clamp(ballVelY + paddleDeltaY, -ballMaxSpeedY, ballMaxSpeedY);
+                ballX = 2 * paddleX - ballX;
+            }
+            else
+            {
+                ResetBall();
+            }
         }
+        ball.transform.position = new Vector2(ballX, ballY);
+    }
+
+    void UpdateScoreDisplay()
+    {
+        // https://learn.microsoft.com/en-us/dotnet/api/system.string.format
+        scoreDisplay.text = $"SCORE BEST\n{string.Format("{0,5}{1,5}", score, highScore)}";
+    }
+
+    void ResetBall()
+    {
+        score = 0;
+        UpdateScoreDisplay();
+
+        ballX = paddleX;
+        ballY = paddleY;
+        ballVelX = ballMaxSpeedX;
+        ballVelY = Random.Range(-ballMaxSpeedY, ballMaxSpeedY);
+
         ball.transform.position = new Vector2(ballX, ballY);
     }
 

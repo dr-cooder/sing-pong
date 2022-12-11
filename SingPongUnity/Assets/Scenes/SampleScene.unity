@@ -352,8 +352,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519801750}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.54, y: -1.07, z: 0}
-  m_LocalScale: {x: 0.44336405, y: 2.0367007, z: 1}
+  m_LocalPosition: {x: -4.5, y: -1, z: 0}
+  m_LocalScale: {x: 0.25, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -436,8 +436,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 621253670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.23, y: -0.68, z: 0}
-  m_LocalScale: {x: 0.44336405, y: 7.036801, z: 1}
+  m_LocalPosition: {x: 4.5, y: -1, z: 0}
+  m_LocalScale: {x: 0.25, y: 7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -475,14 +475,15 @@ MonoBehaviour:
   paddle: {fileID: 519801750}
   ball: {fileID: 930099400}
   wall: {fileID: 621253670}
-  ballMaxSpeedX: 2
-  ballMaxSpeedY: 2
+  scoreDisplay: {fileID: 1114402491}
+  ballMaxSpeedX: 6
+  ballMaxSpeedY: 6
   sPort: COM3
   baud: 115200
   readingsToSmooth: 72
   magnitudeThreshold: 150
   minimumFrequency: 2000
-  maximumFrequency: 4000
+  maximumFrequency: 3500
 --- !u!4 &627512989
 Transform:
   m_ObjectHideFlags: 0
@@ -576,7 +577,7 @@ Transform:
   m_GameObject: {fileID: 930099400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4433641, y: 0.4433641, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -617,8 +618,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 62.058, y: 77.3556}
-  m_SizeDelta: {x: 369.5482, y: 34.3679}
+  m_AnchoredPosition: {x: 0, y: 180}
+  m_SizeDelta: {x: 400, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1114402491
 MonoBehaviour:
@@ -640,7 +641,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SCORE 1 BEST 12
+  m_text: "SCORE BEST\n    0    0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6c068f2bb1bb5114e8b0c540500ac121, type: 2}
   m_sharedMaterial: {fileID: 378376168502010602, guid: 6c068f2bb1bb5114e8b0c540500ac121, type: 2}
@@ -667,14 +668,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
