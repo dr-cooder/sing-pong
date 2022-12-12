@@ -28,6 +28,8 @@ public class SceneMgrScript : MonoBehaviour
     public float ballMaxSpeedX;
     [Min(0)]
     public float ballMaxSpeedY;
+    [Range(0, 1)]
+    public float ballWallRandSkewAmt;
 
     private float ballX;
     private float ballY;
@@ -143,7 +145,7 @@ public class SceneMgrScript : MonoBehaviour
     void Update()
     {
         micData.Read(currentReading);
-        if (micData.Magnitude > 80)
+        if (micData.Magnitude > magnitudeThreshold)
         {
             // Lerp measured frequency to get respective paddle position
             paddleY =
@@ -180,6 +182,7 @@ public class SceneMgrScript : MonoBehaviour
         if (ballX >= wallX && ballVelX > 0)
         {
             ballVelX = -Mathf.Abs(ballVelX);
+            ballVelY = Mathf.Clamp(ballVelY + 2 * Random.Range(-ballMaxSpeedY, ballMaxSpeedY) * ballWallRandSkewAmt, -ballMaxSpeedY, ballMaxSpeedY);
             ballX = 2 * wallX - ballX;
         }
         else if (ballX <= paddleX && ballVelX < 0)

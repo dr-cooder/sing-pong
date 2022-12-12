@@ -478,11 +478,12 @@ MonoBehaviour:
   scoreDisplay: {fileID: 1114402491}
   ballMaxSpeedX: 6
   ballMaxSpeedY: 6
+  ballWallRandSkewAmt: 0.25
   sPort: COM3
   baud: 115200
   readingsToSmooth: 72
-  magnitudeThreshold: 150
-  minimumFrequency: 2000
+  magnitudeThreshold: 100
+  minimumFrequency: 1000
   maximumFrequency: 3500
 --- !u!4 &627512989
 Transform:
